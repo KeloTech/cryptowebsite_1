@@ -1,0 +1,31 @@
+import { About } from "@/components/About";
+import { Community } from "@/components/Community";
+import { Footer } from "@/components/Footer";
+import { Gallery } from "@/components/Gallery";
+import { Hero } from "@/components/Hero";
+import { HowToBuy } from "@/components/HowToBuy";
+import { LiveStats } from "@/components/LiveStats";
+import { MemeGame } from "@/components/MemeGame";
+import { Navbar } from "@/components/Navbar";
+import { TickerStrip } from "@/components/TickerStrip";
+import { Tokenomics } from "@/components/Tokenomics";
+
+export default function Home() {
+  return (
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <MemeGame />
+        <TickerStrip />
+        <About />
+        <Tokenomics />
+        <HowToBuy />
+        <Gallery />
+        <Community />
+        <LiveStats />
+      </main>
+      <Footer />
+    </>
+  );
+}
