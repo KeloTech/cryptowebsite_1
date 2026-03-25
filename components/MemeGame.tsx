@@ -4,12 +4,20 @@ import { siteConfig } from "@/data/siteConfig";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Gamepad2, Sparkles } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export function MemeGame() {
   const url = siteConfig.game.embedUrl;
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
+
+  // If the embedded site blocks iframing (CSP/X-Frame-Options) or just hangs,
+  // `onLoad`/`onError` may not fire reliably. This prevents an infinite spinner.
+  useEffect(() => {
+    if (loaded || failed) return;
+    const t = window.setTimeout(() => setFailed(true), 10000);
+    return () => window.clearTimeout(t);
+  }, [failed, loaded]);
 
   const openTab = useCallback(() => {
     window.open(url, "_blank", "noopener,noreferrer");
@@ -90,7 +98,7 @@ export function MemeGame() {
                 {!failed ? (
                   <>
                     {!loaded && (
-                      <div className="flex aspect-[16/10] items-center justify-center bg-ink">
+                      <div className="mx-auto flex w-full max-w-[480px] aspect-[4/7] items-center justify-center bg-ink">
                         <div className="flex flex-col items-center gap-3 text-sm text-zinc-400">
                           <div className="h-8 w-8 animate-spin rounded-full border-2 border-white/10 border-t-accent" />
                           Loading arcade…
@@ -101,8 +109,9 @@ export function MemeGame() {
                       title="Meme coin mini game"
                       src={url}
                       className={cn(
-                        "aspect-[16/10] w-full border-0 bg-black",
-                        loaded ? "block" : "hidden",
+                        "mx-auto w-full max-w-[480px] aspect-[4/7] border-0 bg-black",
+                        "transition-opacity duration-300",
+                        loaded ? "opacity-100" : "opacity-0 pointer-events-none",
                       )}
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
@@ -112,7 +121,7 @@ export function MemeGame() {
                     />
                   </>
                 ) : (
-                  <div className="flex aspect-[16/10] flex-col items-center justify-center gap-4 bg-gradient-to-br from-elevated to-ink p-8 text-center">
+                  <div className="mx-auto flex w-full max-w-[480px] aspect-[4/7] flex-col items-center justify-center gap-4 bg-gradient-to-br from-elevated to-ink p-8 text-center">
                     <Gamepad2 className="h-10 w-10 text-accent" />
                     <p className="max-w-sm text-sm text-zinc-400">
                       This browser blocked the embed or the game took too long to
