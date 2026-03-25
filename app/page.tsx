@@ -1,5 +1,6 @@
 import { About } from "@/components/About";
 import { Community } from "@/components/Community";
+import { DexChart } from "@/components/DexChart";
 import { Footer } from "@/components/Footer";
 import { Gallery } from "@/components/Gallery";
 import { Hero } from "@/components/Hero";
@@ -24,6 +25,7 @@ export default function Home() {
         <Gallery />
         <Community />
         <LiveStats />
+        <DexChart />
       </main>
       <Footer />
     </>
