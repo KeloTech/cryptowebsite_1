@@ -19,6 +19,17 @@ body {
 }
 
 @layer utilities {
+  @media (max-width: 640px) {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition-duration: 0ms !important;
+      transition-delay: 0ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   .text-balance {
     text-wrap: balance;
   }

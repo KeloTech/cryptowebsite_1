@@ -50,7 +50,7 @@ export const siteConfig = {
   },
 
   game: {
-    embedUrl: "/game/Flappy%20Bird/index.html",
+    embedUrl: "/game/index.html",
     sectionTitle: "Play the Meme Game",
     body:
       "Not everything has to be candlesticks. Jump into the mini game and add a little chaos to your session.",

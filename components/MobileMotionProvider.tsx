@@ -8,7 +8,10 @@ type MobileMotionProviderProps = {
 };
 
 export function MobileMotionProvider({ children }: MobileMotionProviderProps) {
-  const [disableMotion, setDisableMotion] = useState(false);
+  const [disableMotion, setDisableMotion] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(max-width: 640px)").matches;
+  });
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 640px)");
@@ -25,7 +28,10 @@ export function MobileMotionProvider({ children }: MobileMotionProviderProps) {
   }, []);
 
   return (
-    <MotionConfig reducedMotion={disableMotion ? "always" : "never"}>
+    <MotionConfig
+      reducedMotion={disableMotion ? "always" : "never"}
+      transition={disableMotion ? { duration: 0, delay: 0 } : undefined}
+    >
       {children}
     </MotionConfig>
   );
