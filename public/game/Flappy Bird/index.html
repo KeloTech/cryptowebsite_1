@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flappy Bird</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #1a1a2e;
+    }
+    canvas {
+      display: block;
+      background: #16213e;
+      /* Responsive scaling: keep a vertical aspect ratio and scale to screen */
+      width: min(100vw, 480px);
+      aspect-ratio: 4 / 7;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="400" height="700"></canvas>
+  <!-- If the game does not load (blank screen), run a local server from this folder (e.g. npx serve) and open the URL. -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
