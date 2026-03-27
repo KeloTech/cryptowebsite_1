@@ -4,6 +4,7 @@ import { siteConfig } from "@/data/siteConfig";
 import { cn, shortenAddress } from "@/lib/utils";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { Check, Copy, Flame, Sparkles, Users, Zap } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 
@@ -174,44 +175,15 @@ export function Hero() {
               className="relative aspect-square w-full max-w-[340px]"
             >
               <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-tr from-accent/30 via-fuchsia-500/20 to-accent-lime/25 blur-3xl" />
-              <svg
-                viewBox="0 0 400 400"
-                className="relative h-full w-full drop-shadow-2xl"
-                role="img"
-                aria-label="Mascot illustration"
-              >
-                <defs>
-                  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#7cf7ff" />
-                    <stop offset="55%" stopColor="#ff4fd8" />
-                    <stop offset="100%" stopColor="#c8ff4a" />
-                  </linearGradient>
-                </defs>
-                <circle cx="200" cy="210" r="120" fill="url(#g1)" opacity="0.35" />
-                <ellipse cx="200" cy="220" rx="118" ry="108" fill="#0e1018" stroke="rgba(255,255,255,0.12)" strokeWidth="3" />
-                <ellipse cx="165" cy="200" rx="18" ry="22" fill="#f4f4f5" />
-                <ellipse cx="235" cy="200" rx="18" ry="22" fill="#f4f4f5" />
-                <circle cx="168" cy="205" r="7" fill="#0b0c12" />
-                <circle cx="238" cy="205" r="7" fill="#0b0c12" />
-                <path
-                  d="M165 255 Q200 285 235 255"
-                  fill="none"
-                  stroke="rgba(255,255,255,0.35)"
-                  strokeWidth="6"
-                  strokeLinecap="round"
+              <div className="relative h-full w-full drop-shadow-2xl">
+                <Image
+                  src="/assets/snake-coin.png"
+                  alt="Snake coin mascot"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 80vw, 340px"
+                  className="object-contain mix-blend-screen"
                 />
-                <path
-                  d="M120 150 Q200 90 280 150"
-                  fill="none"
-                  stroke="rgba(124,247,255,0.55)"
-                  strokeWidth="8"
-                  strokeLinecap="round"
-                />
-                <circle cx="120" cy="150" r="14" fill="#c8ff4a" opacity="0.9" />
-                <circle cx="280" cy="150" r="14" fill="#7cf7ff" opacity="0.9" />
-              </svg>
-              <div className="pointer-events-none absolute -right-4 bottom-6 rotate-6 rounded-2xl border border-white/10 bg-ink/70 px-3 py-2 text-xs font-semibold text-zinc-200 backdrop-blur">
-                screenshot this energy
               </div>
             </motion.div>
           </div>

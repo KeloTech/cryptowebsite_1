@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Placeholder</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(circle at 20% 20%, #1f2b45, #0a0b12 55%);
+        color: #d4d4d8;
+        font-family: Inter, Arial, sans-serif;
+      }
+      .card {
+        width: min(92vw, 520px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.04);
+        padding: 20px;
+        box-shadow: 0 24px 60px -35px rgba(0, 0, 0, 0.8);
+      }
+      h1 {
+        margin: 0 0 10px;
+        font-size: 20px;
+      }
+      p {
+        margin: 0;
+        line-height: 1.5;
+        font-size: 14px;
+        color: #a1a1aa;
+      }
+      code {
+        color: #7cf7ff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Game folder is ready</h1>
+      <p>
+        Drop your built game files into <code>public/game/</code> and replace this
+        placeholder <code>index.html</code>. The website already points the game
+        section to this local path.
+      </p>
+    </div>
+  </body>
+</html>

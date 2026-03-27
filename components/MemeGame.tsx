@@ -72,7 +72,7 @@ export function MemeGame() {
                 {siteConfig.game.ctaLabel}
               </motion.button>
               <span className="text-xs text-zinc-500">
-                Opens in a new tab · works great on mobile too
+                Opens local game in a new tab
               </span>
             </div>
           </motion.div>
@@ -124,8 +124,9 @@ export function MemeGame() {
                   <div className="mx-auto flex w-full max-w-[480px] aspect-[4/7] flex-col items-center justify-center gap-4 bg-gradient-to-br from-elevated to-ink p-8 text-center">
                     <Gamepad2 className="h-10 w-10 text-accent" />
                     <p className="max-w-sm text-sm text-zinc-400">
-                      This browser blocked the embed or the game took too long to
-                      load. No stress — open it fresh in a new tab.
+                      The local game is not ready yet. Put your build output in
+                      <code className="mx-1 text-zinc-200">public/game</code> and
+                      then open it in a new tab.
                     </p>
                     <button
                       type="button"

@@ -1,4 +1,5 @@
 import { Background } from "@/components/Background";
+import { MobileMotionProvider } from "@/components/MobileMotionProvider";
 import { siteConfig } from "@/data/siteConfig";
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Space_Grotesk } from "next/font/google";
@@ -63,8 +64,10 @@ export default function RootLayout({
       <body
         className={`${sans.variable} ${display.variable} min-h-screen font-sans`}
       >
-        <Background />
-        {children}
+        <MobileMotionProvider>
+          <Background />
+          {children}
+        </MobileMotionProvider>
       </body>
     </html>
   );

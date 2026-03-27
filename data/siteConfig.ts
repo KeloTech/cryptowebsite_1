@@ -50,7 +50,7 @@ export const siteConfig = {
   },
 
   game: {
-    embedUrl: "https://memecoingame.netlify.app/",
+    embedUrl: "/game/Flappy%20Bird/index.html",
     sectionTitle: "Play the Meme Game",
     body:
       "Not everything has to be candlesticks. Jump into the mini game and add a little chaos to your session.",
