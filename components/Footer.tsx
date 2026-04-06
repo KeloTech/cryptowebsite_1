@@ -33,18 +33,18 @@ export function Footer() {
       />
       <div className="mx-auto flex max-w-6xl flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="font-display text-xl font-bold">{siteConfig.brand.ticker}</p>
-          <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-500">
+          <p className="font-display text-xl font-bold text-ink">{siteConfig.brand.ticker}</p>
+          <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">
             {siteConfig.footer.disclaimer}
           </p>
-          <p className="mt-6 text-xs text-zinc-600">{copyright}</p>
+          <p className="mt-6 text-xs text-subtle">{copyright}</p>
         </div>
         <div className="flex flex-wrap gap-3">
           <Link
             href={siteConfig.links.twitter}
             target="_blank"
             rel="noreferrer"
-            className="rounded-2xl border border-line bg-white/5 px-4 py-2 text-sm text-zinc-300 transition hover:border-white/20 hover:text-white"
+            className="rounded-2xl border border-line bg-white/70 px-4 py-2 text-sm text-muted transition hover:border-accent/40 hover:text-ink"
           >
             X
           </Link>
@@ -52,7 +52,7 @@ export function Footer() {
             href={siteConfig.links.telegram}
             target="_blank"
             rel="noreferrer"
-            className="rounded-2xl border border-line bg-white/5 px-4 py-2 text-sm text-zinc-300 transition hover:border-white/20 hover:text-white"
+            className="rounded-2xl border border-line bg-white/70 px-4 py-2 text-sm text-muted transition hover:border-accent/40 hover:text-ink"
           >
             Telegram
           </Link>
@@ -60,7 +60,7 @@ export function Footer() {
             href={siteConfig.links.dexScreener}
             target="_blank"
             rel="noreferrer"
-            className="rounded-2xl border border-line bg-white/5 px-4 py-2 text-sm text-zinc-300 transition hover:border-white/20 hover:text-white"
+            className="rounded-2xl border border-line bg-white/70 px-4 py-2 text-sm text-muted transition hover:border-accent/40 hover:text-ink"
           >
             DexScreener
           </Link>
@@ -73,7 +73,7 @@ export function Footer() {
         animate={showTop ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
         transition={{ duration: 0.25 }}
         className={cn(
-          "fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-2xl border border-line bg-ink/90 px-4 py-3 text-sm font-semibold text-white shadow-2xl backdrop-blur",
+          "fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-2xl border border-line bg-white/90 px-4 py-3 text-sm font-semibold text-ink shadow-lg backdrop-blur",
           !showTop && "pointer-events-none",
         )}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

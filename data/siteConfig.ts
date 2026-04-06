@@ -4,39 +4,50 @@
  */
 
 export const siteConfig = {
+  /** Design / lore demo — no live token, links and contract are placeholders */
+  demo: {
+    active: true,
+    ribbon: "Demo",
+    heroLine:
+      "This site is a layout & lore demo only. No real token, mint, or official links — nothing here is for trading.",
+    contractTitle: "Placeholder contract",
+    contractNote:
+      "Example Solana-style address for UI only. Do not send funds or treat this as a real project.",
+  },
+
   meta: {
-    title: "VIBE | Meme coin on Solana",
+    title: "BlueSloth (demo) | Meme landing",
     description:
-      "A playful, community-first meme token built for the timeline. No roadmap to the moon — just vibes, memes, and honest chaos.",
+      "Fictional BlueSloth jungle lore and UI demo — not a live coin. No real contract or endorsed links.",
     /** Replace with your hosted OG image URL for social previews */
     ogImage: "/og-placeholder.svg",
-    twitterHandle: "@yourcoin",
+    twitterHandle: "@demo",
     siteUrl: "https://example.com",
   },
 
   brand: {
     /** Display name */
-    name: "VibeCoin",
+    name: "BlueSloth",
     /** Short ticker with symbol */
-    ticker: "$VIBE",
-    /** Hero headline — meme-first, confident */
-    headline: "The chart is optional. The joke is mandatory.",
+    ticker: "$SLOTH",
+    /** Hero headline — from lore */
+    headline: "You don’t have to be fast to win — you just have to never stop.",
     /** Hero subcopy */
     description:
-      "We are a meme coin that knows it is a meme coin. Hold for culture, post for sport, and remember: this is entertainment — not a spreadsheet fantasy.",
+      "In the heart of a forgotten digital jungle, BlueSloth found a pulse of pure meme power. It didn’t make him faster — it made him unstoppable. Now he runs: not in a hurry, not in panic, but with purpose.",
     /** Small hero badges (order matters) */
     badges: [
-      { label: "On Solana", icon: "zap" as const },
-      { label: "Community Driven", icon: "users" as const },
-      { label: "Meme Powered", icon: "sparkles" as const },
-      { label: "100% Vibes", icon: "flame" as const },
+      { label: "Solana jungle", icon: "zap" as const },
+      { label: "Meme powered", icon: "sparkles" as const },
+      { label: "Never stops", icon: "flame" as const },
+      { label: "Built different", icon: "users" as const },
     ],
   },
 
   contract: {
-    /** Replace with your mint/contract — used for copy + display */
+    /** Demo placeholder — not a real mint */
     address: "So11111111111111111111111111111111111111112",
-    networkLabel: "Solana",
+    networkLabel: "Solana (demo)",
   },
 
   links: {
@@ -51,44 +62,47 @@ export const siteConfig = {
 
   game: {
     embedUrl: "/game/index.html",
-    sectionTitle: "Play the Meme Game",
+    sectionTitle: "Run the jungle",
     body:
-      "Not everything has to be candlesticks. Jump into the mini game and add a little chaos to your session.",
-    helperLine: "Best played as a quick break between market moves.",
-    pills: ["Arcade Energy", "Community Fun", "Reflex Tested", "Meme Powered"],
-    ctaLabel: "Open Full Game",
+      "Dash through vines and ruins — dodge chaos, collect energy, and keep moving. The arcade is pure BlueSloth energy.",
+    helperLine: "Jump in when you need a break from the chart.",
+    pills: ["Endless run", "Meme energy", "Jungle vibes", "Never stop"],
+    ctaLabel: "Open full game",
   },
 
   /** Horizontal ticker phrases — duplicate for seamless loop handled in component */
   tickerPhrases: [
-    "community owned",
-    "zero fear",
-    "pure vibes",
-    "meme energy",
+    "welcome to the jungle",
+    "never stop",
+    "meme power",
+    "slowest legend",
+    "digital jungle",
     "built for the timeline",
-    "buy the joke",
-    "post first",
-    "touch grass later",
-    "highly serious unseriousness",
-    "chart optional",
+    "pure chaos energy",
+    "run with purpose",
+    "community pack",
+    "bluesloth energy",
   ],
 
   about: {
-    title: "Lore (lightly)",
+    title: "BlueSloth Lore",
     paragraphs: [
-      "Somewhere between a shitpost and a sprint, VibeCoin appeared. No cinematic trailer. No fake utility deck. Just a mascot with attitude and a community that treats the timeline like a sport.",
-      "If you are here for guaranteed numbers, you are in the wrong genre. If you are here for memes, chaos, and a coin that does not pretend to be a hedge fund — welcome home.",
+      "In the heart of a forgotten digital jungle lives BlueSloth — the slowest creature to ever become the fastest legend.",
+      "Once just a chill, sleepy sloth vibing in the trees, BlueSloth discovered a strange energy flowing through the jungle — a pulse of pure meme power. Instead of making him faster… it made him unstoppable.",
+      "Now, he runs. Not in a hurry. Not in panic. But with purpose.",
+      "Through vines, ruins, and wild terrain, BlueSloth dashes endlessly, collecting energy, dodging chaos, and proving one thing: you don’t have to be fast to win — you just have to never stop.",
+      "Welcome to the jungle. Welcome to BlueSloth. 🦥💙",
     ],
     stats: [
-      { label: "Years of Delusion", value: "∞" },
-      { label: "Sleep Resistance", value: "Legendary" },
-      { label: "Vibe Score", value: "Over 9000*" },
+      { label: "Panic level", value: "0%" },
+      { label: "Stop rate", value: "Never" },
+      { label: "Meme power", value: "∞" },
     ],
   },
 
   tokenomics: {
     title: "Tokenomics",
-    subtitle: "Simple facts. Update when real numbers are live.",
+    subtitle: "Demo numbers for layout — replace if you ship a real token.",
     items: [
       {
         key: "supply",
@@ -127,7 +141,7 @@ export const siteConfig = {
       },
       {
         key: "community",
-        label: "Ownership vibe",
+        label: "Jungle vibe",
         value: "Community-first",
         hint: "REPLACE: team / multisig notes",
         icon: "heart" as const,
@@ -137,72 +151,35 @@ export const siteConfig = {
 
   howToBuy: {
     title: "How to Buy",
-    subtitle: "Beginner-friendly. No gatekeeping.",
+    subtitle: "Illustrative steps only — this demo is not a token sale.",
     steps: [
       {
         title: "Create a wallet",
-        body: "Grab a Solana wallet (Phantom, Backpack, etc.) and keep your seed phrase offline.",
+        body: "For a real launch you’d use a Solana wallet (Phantom, Backpack, etc.) and keep your seed phrase offline.",
       },
       {
         title: "Get SOL",
-        body: "Buy SOL on an exchange you trust and send it to your wallet address.",
+        body: "On a real project you’d fund the wallet with SOL from an exchange you trust.",
       },
       {
-        title: "Paste the contract",
-        body: "Copy the contract from this page and verify it matches official announcements.",
+        title: "Verify the contract",
+        body: "Always match the mint from official channels — here the address is just a placeholder.",
       },
       {
         title: "Swap and join",
-        body: "Swap SOL for $VIBE on your preferred route, then say hi in the community.",
-      },
-    ],
-  },
-
-  gallery: {
-    title: "Meme Wall",
-    subtitle: "Visual identity beats a whitepaper. Swap these for real art when ready.",
-    items: [
-      {
-        id: "1",
-        src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
-        alt: "Abstract neon gradient placeholder",
-      },
-      {
-        id: "2",
-        src: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=800&q=80",
-        alt: "Abstract shapes placeholder",
-      },
-      {
-        id: "3",
-        src: "https://images.unsplash.com/photo-1557683316-973673baf926?w=800&q=80",
-        alt: "Color burst placeholder",
-      },
-      {
-        id: "4",
-        src: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?w=800&q=80",
-        alt: "Gradient placeholder",
-      },
-      {
-        id: "5",
-        src: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&q=80",
-        alt: "Neon placeholder",
-      },
-      {
-        id: "6",
-        src: "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=800&q=80",
-        alt: "Pattern placeholder",
+        body: "On a live coin you’d swap on your preferred route and join real community links.",
       },
     ],
   },
 
   community: {
     title: "Community",
-    subtitle: "Pick your lane. All roads lead to more memes.",
+    subtitle: "Card layout demo — outbound links are generic placeholders, not this project’s official pages.",
     cards: [
       {
         key: "telegram",
         name: "Telegram",
-        reason: "Holders, chat, and live chaos.",
+        reason: "Holders, chat, and jungle chaos.",
         hrefKey: "telegram" as const,
         icon: "send" as const,
       },
@@ -245,8 +222,8 @@ export const siteConfig = {
 
   footer: {
     disclaimer:
-      "VibeCoin is a meme coin for entertainment and community culture. Not financial advice. No promises. No guaranteed returns. DYOR. If you cannot afford to lose it, do not buy it.",
-    copyright: "© {year} VibeCoin community",
+      "This website is a fictional demo for design and lore. There is no BlueSloth token offering, no verified contract for this page, and no guarantee that links point to a real project. Not financial advice. Do not send funds based on this site.",
+    copyright: "© {year} Demo / BlueSloth concept",
   },
 } as const;
 

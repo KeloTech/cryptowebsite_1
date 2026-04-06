@@ -32,13 +32,13 @@ export function LiveStats() {
 
   return (
     <section aria-label={cfg.title} className="px-4 py-12 sm:px-6">
-      <div className="mx-auto max-w-6xl rounded-[2rem] border border-dashed border-white/15 bg-white/[0.02] p-8">
+      <div className="mx-auto max-w-6xl rounded-[2rem] border border-dashed border-line bg-white/50 p-8 shadow-sm backdrop-blur-sm">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h2 className="font-display text-2xl font-bold">{cfg.title}</h2>
-            <p className="mt-1 text-sm text-zinc-500">{cfg.subtitle}</p>
+            <h2 className="font-display text-2xl font-bold text-ink">{cfg.title}</h2>
+            <p className="mt-1 text-sm text-muted">{cfg.subtitle}</p>
           </div>
-          <p className="text-xs text-zinc-600">
+          <p className="text-xs text-subtle">
             Status: {status === "loading" ? "loading…" : status === "error" ? "API not wired" : "placeholder"}
           </p>
         </div>
@@ -49,16 +49,16 @@ export function LiveStats() {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="rounded-2xl border border-line bg-elevated/50 p-4"
+              className="rounded-2xl border border-line bg-white/80 p-4 shadow-sm"
             >
-              <p className="text-xs text-zinc-500">{p.label}</p>
-              <p className="mt-2 font-display text-xl font-semibold text-zinc-200">
+              <p className="text-xs text-subtle">{p.label}</p>
+              <p className="mt-2 font-display text-xl font-semibold text-ink">
                 {p.value}
               </p>
             </motion.div>
           ))}
         </div>
-        <p className="mt-6 text-xs text-zinc-600">
+        <p className="mt-6 text-xs text-subtle">
           {/* Hook: replace placeholders by mapping fetchTokenStats() results into cards. */}
         </p>
       </div>

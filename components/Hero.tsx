@@ -2,7 +2,7 @@
 
 import { siteConfig } from "@/data/siteConfig";
 import { cn, shortenAddress } from "@/lib/utils";
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import { Check, Copy, Flame, Sparkles, Users, Zap } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,15 +30,8 @@ export function Hero() {
     }
   }, [address]);
 
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const spotlight = useMotionTemplate`radial-gradient(520px circle at ${mx}px ${my}px, rgba(124,247,255,0.16), transparent 55%)`;
-
-  const onMove = (e: React.PointerEvent<HTMLElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    mx.set(e.clientX - r.left);
-    my.set(e.clientY - r.top);
-  };
+  /** public/assets — rename file to match if needed (spaces encoded for URL) */
+  const blueslothLogoSrc = encodeURI("/assets/bluesloth logo.png");
 
   return (
     <section
@@ -51,7 +44,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-zinc-300"
+            className="mb-3 inline-flex items-center gap-2 rounded-full border border-line bg-white/70 px-3 py-1 text-xs font-semibold text-ink/85 shadow-sm backdrop-blur-sm"
           >
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
             {siteConfig.brand.ticker} · {siteConfig.contract.networkLabel}
@@ -61,7 +54,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.05 }}
-            className="font-display text-4xl font-bold leading-[1.05] tracking-tight text-balance sm:text-5xl lg:text-6xl"
+            className="font-display text-4xl font-bold leading-[1.08] tracking-tight text-balance text-ink sm:text-5xl lg:text-6xl"
           >
             {siteConfig.brand.headline}
           </motion.h1>
@@ -70,10 +63,26 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.12 }}
-            className="mt-5 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg"
+            className="mt-5 max-w-xl text-base leading-relaxed text-ink/78 sm:text-lg"
           >
             {siteConfig.brand.description}
           </motion.p>
+
+          {siteConfig.demo.active && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.16 }}
+              className="mt-4 flex max-w-xl flex-col gap-2"
+            >
+              <span className="inline-flex w-fit rounded-full border border-dashed border-muted px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-muted">
+                {siteConfig.demo.ribbon}
+              </span>
+              <p className="text-sm leading-relaxed text-subtle">
+                {siteConfig.demo.heroLine}
+              </p>
+            </motion.div>
+          )}
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -87,17 +96,17 @@ export function Hero() {
                 target="_blank"
                 rel="noreferrer"
                 className={cn(
-                  "inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-accent to-cyan-300 px-6 py-3.5 text-sm font-semibold text-ink shadow-[0_0_40px_-12px_rgba(124,247,255,0.9)] sm:w-auto",
+                  "inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-accent to-accent-cyan px-6 py-3.5 text-sm font-semibold text-ink shadow-[0_12px_40px_-12px_rgba(74,184,201,0.55)] sm:w-auto",
                   "animate-pulse-soft",
                 )}
               >
-                Buy Now
+                {siteConfig.demo.active ? "Buy (example link)" : "Buy Now"}
               </Link>
             </motion.div>
             <Link
               href="#community"
               className={cn(
-                "inline-flex w-full items-center justify-center rounded-2xl border border-line bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10 sm:w-auto",
+                "inline-flex w-full items-center justify-center rounded-2xl border border-line bg-white/70 px-6 py-3.5 text-sm font-semibold text-ink shadow-sm transition hover:bg-white sm:w-auto",
               )}
             >
               Join Community
@@ -108,20 +117,27 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.24 }}
-            className="mt-8 rounded-2xl border border-line bg-white/[0.03] p-4 shadow-inner"
+            className="mt-8 rounded-2xl border border-line bg-white/65 p-4 shadow-sm backdrop-blur-sm"
           >
-            <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
-              Contract
+            <p className="text-xs font-medium uppercase tracking-wider text-subtle">
+              {siteConfig.demo.active
+                ? siteConfig.demo.contractTitle
+                : "Contract"}
             </p>
+            {siteConfig.demo.active && (
+              <p className="mt-1 text-xs leading-snug text-subtle">
+                {siteConfig.demo.contractNote}
+              </p>
+            )}
             <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <code className="break-all font-mono text-sm text-zinc-200 sm:text-base">
+              <code className="break-all font-mono text-sm text-ink sm:text-base">
                 <span className="sm:hidden">{short}</span>
                 <span className="hidden sm:inline">{address}</span>
               </code>
               <button
                 type="button"
                 onClick={copy}
-                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-line bg-white/5 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10"
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-line bg-white/90 px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-surface"
               >
                 {copied ? (
                   <>
@@ -149,7 +165,7 @@ export function Hero() {
               return (
                 <li
                   key={b.label}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white/60 px-3 py-1 text-xs text-muted shadow-sm backdrop-blur-sm"
                 >
                   <Icon className="h-3.5 w-3.5 text-accent" />
                   {b.label}
@@ -163,30 +179,22 @@ export function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.1 }}
-          onPointerMove={onMove}
-          style={{ backgroundImage: spotlight }}
-          className="relative isolate min-h-[320px] overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.06] to-transparent p-1 shadow-[0_0_0_1px_rgba(255,255,255,0.06)_inset] sm:min-h-[420px]"
+          className="relative flex min-h-[280px] items-center justify-center sm:min-h-[380px] lg:min-h-[420px]"
         >
-          <div className="absolute inset-0 rounded-[1.85rem] bg-gradient-to-br from-accent/10 via-transparent to-accent-hot/10" />
-          <div className="relative flex h-full items-center justify-center p-8">
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="relative aspect-square w-full max-w-[340px]"
-            >
-              <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-tr from-accent/30 via-fuchsia-500/20 to-accent-lime/25 blur-3xl" />
-              <div className="relative h-full w-full drop-shadow-2xl">
-                <Image
-                  src="/assets/snake-coin.png"
-                  alt="Snake coin mascot"
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 80vw, 340px"
-                  className="object-contain mix-blend-screen"
-                />
-              </div>
-            </motion.div>
-          </div>
+          <motion.div
+            animate={{ y: [0, -14, 0] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+            className="relative h-[min(72vw,260px)] w-[min(72vw,260px)] sm:h-[min(50vw,300px)] sm:w-[min(50vw,300px)] lg:h-[340px] lg:w-[340px]"
+          >
+            <Image
+              src={blueslothLogoSrc}
+              alt="Bluesloth"
+              fill
+              priority
+              sizes="(max-width: 640px) 72vw, (max-width: 1024px) 50vw, 340px"
+              className="object-contain drop-shadow-[0_12px_40px_rgba(26,64,58,0.18)]"
+            />
+          </motion.div>
         </motion.div>
       </div>
     </section>

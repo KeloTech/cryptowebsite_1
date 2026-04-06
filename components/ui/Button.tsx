@@ -5,10 +5,10 @@ type Variant = "primary" | "secondary" | "ghost";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-gradient-to-r from-accent to-cyan-300 text-ink shadow-[0_0_40px_-10px_rgba(124,247,255,0.8)] hover:shadow-[0_0_50px_-8px_rgba(124,247,255,0.95)]",
+    "bg-gradient-to-r from-accent to-accent-cyan text-ink shadow-[0_10px_36px_-10px_rgba(74,184,201,0.5)] hover:shadow-[0_12px_40px_-8px_rgba(74,184,201,0.55)]",
   secondary:
-    "border border-line bg-white/5 text-white hover:bg-white/10 hover:border-white/20",
-  ghost: "text-zinc-300 hover:text-white hover:bg-white/5",
+    "border border-line bg-white/75 text-ink shadow-sm hover:bg-white hover:border-accent/30",
+  ghost: "text-muted hover:text-ink hover:bg-white/60",
 };
 
 export function Button({

@@ -1,31 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flappy Bird</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background: #1a1a2e;
-    }
-    canvas {
-      display: block;
-      background: #16213e;
-      /* Responsive scaling: keep a vertical aspect ratio and scale to screen */
-      width: min(100vw, 480px);
-      aspect-ratio: 4 / 7;
-      height: auto;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roof Runner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <canvas id="gameCanvas" width="400" height="700"></canvas>
-  <!-- If the game does not load (blank screen), run a local server from this folder (e.g. npx serve) and open the URL. -->
-  <script type="module" src="js/main.js"></script>
+  <div class="wrap">
+    <div class="game-surface">
+      <canvas id="game" width="960" height="400" tabindex="0" aria-label="Game canvas"></canvas>
+      <div id="hud">
+        <span id="score">0m</span>
+      </div>
+      <div id="overlay" class="hidden" aria-live="polite">
+        <div class="overlay-bar"></div>
+        <h1 id="go-title">Game over</h1>
+        <p id="epitaph" class="epitaph"></p>
+        <p class="final-line">You ran <strong id="final-score">0</strong>m</p>
+        <button type="button" id="restart">Restart</button>
+        <p class="hint">Jump: Space, X, or click — hold for a higher jump</p>
+        <div class="overlay-footer"></div>
+      </div>
+      <div id="lb-entry" class="lb-entry hidden" aria-hidden="true">
+        <div class="lb-entry-inner">
+          <p class="lb-entry-title">Save score <span id="lb-entry-score"></span>m</p>
+          <label class="lb-sr-only" for="lb-name-input">Your name</label>
+          <input type="text" id="lb-name-input" maxlength="14" placeholder="Your name" autocomplete="off" />
+          <div class="lb-entry-actions">
+            <button type="button" id="lb-submit-btn">Submit</button>
+            <button type="button" id="lb-skip-btn" class="lb-btn-ghost">Skip</button>
+          </div>
+          <p id="lb-entry-msg" class="lb-entry-msg" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+    <aside id="lb-panel" class="lb-sidebar lb-panel" aria-label="Top scores">
+      <h3 class="lb-heading">Top 10</h3>
+      <ol id="lb-list" class="lb-list lb-list-compact"></ol>
+      <button type="button" id="lb-open-full" class="lb-open-full">
+        Leaderboard
+      </button>
+      <p id="lb-panel-msg" class="lb-panel-msg hidden" aria-live="polite"></p>
+    </aside>
+  </div>
+
+  <div
+    id="lb-modal"
+    class="lb-modal hidden"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="lb-modal-title"
+  >
+    <div class="lb-modal-backdrop" id="lb-modal-backdrop" aria-hidden="true"></div>
+    <div class="lb-modal-dialog">
+      <div class="lb-modal-header">
+        <h2 id="lb-modal-title" class="lb-modal-title">Top 100</h2>
+        <button type="button" id="lb-modal-close" class="lb-modal-close" aria-label="Close">
+          ×
+        </button>
+      </div>
+      <div class="lb-modal-scroll">
+        <ol id="lb-list-full" class="lb-list"></ol>
+      </div>
+    </div>
+  </div>
+  <!-- Asset loader must be first so ASSETS is available when script.js runs -->
+  <script src="assets.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

@@ -2,17 +2,19 @@ import { Background } from "@/components/Background";
 import { MobileMotionProvider } from "@/components/MobileMotionProvider";
 import { siteConfig } from "@/data/siteConfig";
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, Space_Grotesk } from "next/font/google";
+import { Nunito, Quicksand } from "next/font/google";
 import "./globals.css";
 
-const display = Space_Grotesk({
+const sans = Nunito({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-sans",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const sans = DM_Sans({
+const display = Quicksand({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-display",
+  weight: ["500", "600", "700"],
 });
 
 const base = new URL(siteConfig.meta.siteUrl);
@@ -51,7 +53,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#07080f",
+  themeColor: "#e8f5ef",
 };
 
 export default function RootLayout({
@@ -61,9 +63,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body
-        className={`${sans.variable} ${display.variable} min-h-screen font-sans`}
-      >
+      <body className={`${sans.variable} ${display.variable}`}>
         <MobileMotionProvider>
           <Background />
           {children}

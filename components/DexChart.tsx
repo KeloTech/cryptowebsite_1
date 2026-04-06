@@ -5,7 +5,7 @@ import { LineChart } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
 const EMBED_SRC =
-  "https://dexscreener.com/solana/GexwWEpwZzBM6wqhHrQd2MgVdWAbNGgLxLLHAfEDc1B2?embed=1&loadChartSettings=0&chartLeftToolbar=0&chartTheme=dark&theme=dark&chartStyle=0&chartType=usd&interval=15";
+  "https://dexscreener.com/solana/GexwWEpwZzBM6wqhHrQd2MgVdWAbNGgLxLLHAfEDc1B2?embed=1&loadChartSettings=0&chartLeftToolbar=0&chartTheme=light&theme=light&chartStyle=0&chartType=usd&interval=15";
 const OPEN_SRC =
   "https://dexscreener.com/solana/GexwWEpwZzBM6wqhHrQd2MgVdWAbNGgLxLLHAfEDc1B2";
 
@@ -25,7 +25,7 @@ export function DexChart() {
 
   return (
     <section id="chart" className="relative px-4 py-16 sm:px-6">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-accent/5 to-transparent blur-3xl" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-accent/10 to-transparent blur-3xl" />
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -34,14 +34,14 @@ export function DexChart() {
           transition={{ duration: 0.5 }}
           className="mb-8 flex items-center gap-3"
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent/10 ring-1 ring-accent/20">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent/15 ring-1 ring-accent/25">
             <LineChart className="h-4 w-4 text-accent" />
           </div>
           <div>
-            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
               Live Chart
             </h2>
-            <p className="mt-0.5 text-sm text-zinc-500">
+            <p className="mt-0.5 text-sm text-muted">
               Powered by DexScreener
             </p>
           </div>
@@ -52,12 +52,12 @@ export function DexChart() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="relative aspect-[9/14] overflow-hidden rounded-2xl border border-white/10 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)] sm:aspect-[16/12] lg:aspect-[16/9]"
+          className="relative aspect-[9/14] overflow-hidden rounded-2xl border border-line bg-white/60 shadow-[0_24px_60px_-36px_rgba(26,64,58,0.25)] sm:aspect-[16/12] lg:aspect-[16/9]"
         >
           {!loaded && !failed && (
-            <div className="absolute inset-0 z-10 flex items-center justify-center bg-ink/80">
-              <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-zinc-300">
-                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/20 border-t-accent" />
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-surface/90 backdrop-blur-sm">
+              <div className="flex items-center gap-3 rounded-xl border border-line bg-white/90 px-4 py-3 text-sm text-muted shadow-sm">
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-line border-t-accent" />
                 Loading chart...
               </div>
             </div>
@@ -80,15 +80,15 @@ export function DexChart() {
           />
 
           {failed && (
-            <div className="absolute inset-0 z-20 flex items-center justify-center bg-gradient-to-br from-elevated to-ink p-6">
+            <div className="absolute inset-0 z-20 flex items-center justify-center bg-gradient-to-br from-white/95 to-surface p-6">
               <div className="max-w-sm text-center">
-                <p className="text-sm text-zinc-300">
+                <p className="text-sm text-muted">
                   DexScreener embed is slow or blocked in this browser.
                 </p>
                 <button
                   type="button"
                   onClick={openChart}
-                  className="mt-4 rounded-xl bg-gradient-to-r from-accent to-cyan-300 px-4 py-2.5 text-sm font-semibold text-ink"
+                  className="mt-4 rounded-xl bg-gradient-to-r from-accent to-accent-cyan px-4 py-2.5 text-sm font-semibold text-ink shadow-sm"
                 >
                   Open Live Chart
                 </button>

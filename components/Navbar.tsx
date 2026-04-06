@@ -11,7 +11,6 @@ const navItems = [
   { href: "#about", label: "About" },
   { href: "#tokenomics", label: "Tokenomics" },
   { href: "#how-to-buy", label: "How to Buy" },
-  { href: "#gallery", label: "Gallery" },
   { href: "#community", label: "Community" },
 ];
 
@@ -37,7 +36,7 @@ export function Navbar() {
     <header
       className={cn(
         "sticky top-0 z-50 border-b border-transparent transition-colors duration-300",
-        scrolled && "border-line bg-ink/75 backdrop-blur-xl",
+        scrolled && "border-line bg-white/70 shadow-sm backdrop-blur-xl",
       )}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
@@ -45,10 +44,10 @@ export function Navbar() {
           href="#top"
           className="group flex items-baseline gap-2 font-display text-lg font-bold tracking-tight"
         >
-          <span className="rounded-xl bg-white/5 px-2 py-1 text-sm ring-1 ring-white/10 transition group-hover:ring-accent/40">
+          <span className="rounded-xl bg-white/80 px-2 py-1 text-sm text-ink shadow-sm ring-1 ring-line transition group-hover:ring-accent/50">
             {siteConfig.brand.ticker}
           </span>
-          <span className="hidden sm:inline text-zinc-400">
+          <span className="hidden sm:inline font-medium text-ink/80">
             {siteConfig.brand.name}
           </span>
         </Link>
@@ -58,7 +57,7 @@ export function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className="nav-underline relative px-3 py-2 text-sm text-zinc-300 transition hover:text-white"
+              className="nav-underline relative px-3 py-2 text-sm font-medium text-ink/78 transition hover:text-ink"
             >
               {item.label}
             </Link>
@@ -71,7 +70,7 @@ export function Navbar() {
               href={siteConfig.links.twitter}
               target="_blank"
               rel="noreferrer"
-              className="rounded-xl p-2 text-zinc-400 transition hover:bg-white/5 hover:text-white"
+              className="rounded-xl p-2 text-ink/72 transition hover:bg-white/60 hover:text-ink"
               aria-label="X / Twitter"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
@@ -82,7 +81,7 @@ export function Navbar() {
               href={siteConfig.links.telegram}
               target="_blank"
               rel="noreferrer"
-              className="rounded-xl p-2 text-zinc-400 transition hover:bg-white/5 hover:text-white"
+              className="rounded-xl p-2 text-ink/72 transition hover:bg-white/60 hover:text-ink"
               aria-label="Telegram"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
@@ -96,15 +95,15 @@ export function Navbar() {
             rel="noreferrer"
             whileHover={{ y: -1 }}
             whileTap={{ scale: 0.98 }}
-            className="rounded-2xl bg-gradient-to-r from-accent to-cyan-300 px-4 py-2 text-sm font-semibold text-ink shadow-[0_0_30px_-10px_rgba(124,247,255,0.7)]"
+            className="rounded-2xl bg-gradient-to-r from-accent to-accent-cyan px-4 py-2 text-sm font-semibold text-ink shadow-[0_8px_28px_-8px_rgba(74,184,201,0.55)]"
           >
-            Buy Now
+            {siteConfig.demo.active ? "Buy (demo)" : "Buy Now"}
           </motion.a>
         </div>
 
         <button
           type="button"
-          className="inline-flex rounded-xl p-2 text-zinc-200 ring-1 ring-white/10 lg:hidden"
+          className="inline-flex rounded-xl p-2 text-ink ring-1 ring-line lg:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label="Toggle menu"
@@ -120,7 +119,7 @@ export function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="border-t border-line bg-ink/95 backdrop-blur-xl lg:hidden"
+            className="border-t border-line bg-white/95 backdrop-blur-xl lg:hidden"
           >
             <div className="flex flex-col gap-1 px-4 py-4">
               {navItems.map((item, i) => (
@@ -133,7 +132,7 @@ export function Navbar() {
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-xl px-3 py-3 text-base text-zinc-200 hover:bg-white/5"
+                    className="block rounded-xl px-3 py-3 text-base text-ink hover:bg-surface/80"
                   >
                     {item.label}
                   </Link>
@@ -144,7 +143,7 @@ export function Navbar() {
                   href={siteConfig.links.twitter}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex-1 rounded-2xl border border-line bg-white/5 py-3 text-center text-sm"
+                  className="flex-1 rounded-2xl border border-line bg-surface/90 py-3 text-center text-sm text-ink"
                 >
                   X
                 </a>
@@ -152,7 +151,7 @@ export function Navbar() {
                   href={siteConfig.links.telegram}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex-1 rounded-2xl border border-line bg-white/5 py-3 text-center text-sm"
+                  className="flex-1 rounded-2xl border border-line bg-surface/90 py-3 text-center text-sm text-ink"
                 >
                   Telegram
                 </a>
@@ -160,9 +159,9 @@ export function Navbar() {
                   href={siteConfig.links.buy}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex-[1.3] rounded-2xl bg-gradient-to-r from-accent to-cyan-300 py-3 text-center text-sm font-semibold text-ink"
+                  className="flex-[1.3] rounded-2xl bg-gradient-to-r from-accent to-accent-cyan py-3 text-center text-sm font-semibold text-ink"
                 >
-                  Buy Now
+                  {siteConfig.demo.active ? "Buy (demo)" : "Buy Now"}
                 </a>
               </div>
             </div>

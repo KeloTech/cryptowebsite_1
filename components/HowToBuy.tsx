@@ -14,10 +14,10 @@ export function HowToBuy() {
           transition={{ duration: 0.45 }}
           className="max-w-2xl"
         >
-          <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
             {siteConfig.howToBuy.title}
           </h2>
-          <p className="mt-3 text-zinc-400">{siteConfig.howToBuy.subtitle}</p>
+          <p className="mt-3 text-muted">{siteConfig.howToBuy.subtitle}</p>
         </motion.div>
 
         <ol className="mt-12 grid gap-4 md:grid-cols-2">
@@ -28,20 +28,20 @@ export function HowToBuy() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
               transition={{ delay: i * 0.1, duration: 0.45 }}
-              className="relative overflow-hidden rounded-3xl border border-line bg-elevated/60 p-6"
+              className="relative overflow-hidden rounded-3xl border border-line bg-white/75 p-6 shadow-sm backdrop-blur-sm"
             >
               <div className="flex items-start gap-4">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-accent/25 to-accent-hot/20 font-display text-sm font-bold text-white ring-1 ring-white/10">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-accent/30 to-accent-lime/25 font-display text-sm font-bold text-ink ring-1 ring-line">
                   {i + 1}
                 </span>
                 <div>
-                  <h3 className="font-display text-lg font-semibold">{step.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                  <h3 className="font-display text-lg font-semibold text-ink">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">
                     {step.body}
                   </p>
                 </div>
               </div>
-              <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-accent/10 blur-3xl" />
+              <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-accent/15 blur-3xl" />
             </motion.li>
           ))}
         </ol>

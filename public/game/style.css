@@ -1,0 +1,478 @@
+* {
+  box-sizing: border-box;
+}
+
+/* Bluesloth — pastel green shell (was dark grey/black) */
+:root {
+  --page-bg: #e8f4ec;
+  --panel-bg: #d4ecdc;
+  --panel-bg-2: #c8e6d4;
+  --border: #7bc9a0;
+  --border-soft: #a8dfc0;
+  --canvas-bg: #c5e8d4;
+  --text: #1a403a;
+  --text-soft: #3d5c54;
+  --bar: #8fd9b0;
+  --shadow: rgba(26, 64, 58, 0.12);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--page-bg);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: var(--text-soft);
+}
+
+.wrap {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: min(1600px, 100vw);
+  padding: 8px;
+  box-sizing: border-box;
+  filter: drop-shadow(0 8px 24px var(--shadow));
+}
+
+.game-surface {
+  position: relative;
+  flex: 1 1 320px;
+  min-width: 0;
+  width: 100%;
+  aspect-ratio: 12 / 5;
+}
+
+#game {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--canvas-bg);
+  border: 2px solid var(--border);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+#hud {
+  position: absolute;
+  top: 9px;
+  right: 12px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+
+#hud span {
+  color: #1a403a;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  background: rgba(200, 236, 216, 0.94);
+  border-radius: 2px;
+  padding: 1rem 1.25rem;
+  text-align: center;
+}
+
+#overlay.hidden {
+  display: none;
+}
+
+.overlay-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: var(--bar);
+  border-bottom: 1px solid var(--border);
+}
+
+.overlay-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 18px;
+  background: var(--bar);
+}
+
+#go-title {
+  margin: 0;
+  margin-top: 8px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.epitaph {
+  margin: 0;
+  max-width: 28em;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: var(--text-soft);
+}
+
+.final-line {
+  margin: 0.25rem 0 0;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+#restart {
+  margin-top: 0.65rem;
+  padding: 0.45rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 2px;
+  background: #5a9fc8;
+  color: #0d1117;
+  cursor: pointer;
+}
+
+#restart:hover {
+  background: #7ab8e0;
+}
+
+.hint {
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  opacity: 0.85;
+  max-width: 22em;
+  color: var(--text-soft);
+}
+
+.lb-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lb-entry {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px 12px 20px;
+  background: linear-gradient(transparent, rgba(180, 228, 200, 0.97));
+  z-index: 4;
+  pointer-events: auto;
+}
+
+.lb-entry.hidden {
+  display: none;
+}
+
+.lb-entry-inner {
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lb-entry-title {
+  margin: 0;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: var(--text);
+  text-align: center;
+}
+
+.lb-entry-inner input {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  padding: 10px 12px;
+  border: 2px solid var(--border);
+  border-radius: 2px;
+  background: #f5fcf8;
+  color: var(--text);
+  outline: none;
+}
+
+.lb-entry-inner input:focus {
+  border-color: #5a9fc8;
+}
+
+.lb-entry-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.lb-entry-actions button {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+#lb-submit-btn {
+  background: #5a9fc8;
+  color: #0d1117;
+}
+
+#lb-submit-btn:hover:not(:disabled) {
+  background: #8ab8e8;
+}
+
+#lb-submit-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.lb-btn-ghost {
+  background: #b8dcc8;
+  color: var(--text);
+  border: 2px solid var(--border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.lb-btn-ghost:hover:not(:disabled) {
+  background: #a8d4bc;
+  border-color: #7bc9a0;
+  color: var(--text);
+}
+
+.lb-entry-msg {
+  margin: 0;
+  min-height: 1.2em;
+  font-size: 0.75rem;
+  text-align: center;
+  color: #b86a30;
+}
+
+.lb-sidebar.lb-panel {
+  flex: 0 0 200px;
+  width: 200px;
+  max-width: calc(100% - 8px);
+  margin-top: 0;
+  padding: 8px 8px 10px;
+  background: var(--panel-bg);
+  border: 2px solid var(--border);
+  border-radius: 2px;
+  font-size: 0.72rem;
+  color: var(--text-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-self: flex-start;
+}
+
+.lb-heading {
+  margin: 0;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #2d6a4f;
+  letter-spacing: 0.06em;
+  flex: 0 0 auto;
+}
+
+.lb-list-compact {
+  flex: 0 1 auto;
+  max-height: 200px;
+  overflow-y: auto;
+  margin: 0;
+  padding-left: 1.15em;
+  line-height: 1.4;
+  font-size: 0.88em;
+  scrollbar-width: thin;
+  scrollbar-color: #8fd9b0 #e8f4ec;
+}
+
+.lb-list-compact::-webkit-scrollbar {
+  width: 6px;
+}
+
+.lb-list-compact::-webkit-scrollbar-thumb {
+  background: #8fd9b0;
+  border-radius: 2px;
+}
+
+.lb-open-full {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  padding: 8px 6px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  line-height: 1.3;
+  border: none;
+  border-radius: 2px;
+  background: #5a9fc8;
+  color: #0d1117;
+  cursor: pointer;
+  width: 100%;
+}
+
+.lb-open-full:hover {
+  background: #7ab0e0;
+}
+
+.lb-list {
+  margin: 0;
+  padding-left: 1.35em;
+  line-height: 1.45;
+  font-size: 0.92em;
+}
+
+.lb-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.lb-modal.hidden {
+  display: none;
+}
+
+.lb-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 64, 58, 0.35);
+  cursor: pointer;
+}
+
+.lb-modal-dialog {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  max-height: min(88vh, 520px);
+  display: flex;
+  flex-direction: column;
+  background: var(--panel-bg);
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  box-shadow: 0 16px 48px var(--shadow);
+}
+
+.lb-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-soft);
+  flex: 0 0 auto;
+}
+
+.lb-modal-title {
+  margin: 0;
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  color: #2d6a4f;
+  letter-spacing: 0.04em;
+}
+
+.lb-modal-close {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 2px;
+  background: var(--border-soft);
+  color: var(--text);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lb-modal-close:hover {
+  background: #9dd9b5;
+}
+
+.lb-modal-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 10px 12px 14px;
+  font-size: 0.82rem;
+  scrollbar-width: thin;
+  scrollbar-color: #8fd9b0 #e8f4ec;
+}
+
+.lb-modal-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.lb-modal-scroll::-webkit-scrollbar-thumb {
+  background: #8fd9b0;
+  border-radius: 2px;
+}
+
+.lb-list li {
+  margin: 0.2em 0;
+}
+
+.lb-list .lb-name {
+  color: var(--text);
+}
+
+.lb-list .lb-score {
+  color: #3a8fb8;
+  margin-left: 0.35em;
+}
+
+.lb-panel-msg {
+  margin: 4px 0 0;
+  font-size: 0.68rem;
+  line-height: 1.35;
+  color: #b86a30;
+}
+
+.lb-panel-msg.hidden {
+  display: none;
+}
+
+@media (max-width: 920px) {
+  .wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .lb-sidebar.lb-panel {
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 420px;
+  }
+}

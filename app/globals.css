@@ -3,19 +3,28 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html {
   scroll-behavior: smooth;
+  min-height: 100%;
+  min-height: 100dvh;
+  background-color: #e8f5ef;
+  background-image: url("/assets/web_background.png");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
 }
 
 body {
-  @apply min-h-screen bg-ink text-zinc-100 antialiased;
+  @apply min-h-[100dvh] font-sans text-ink antialiased;
+  background-color: transparent;
 }
 
 ::selection {
-  @apply bg-accent/30 text-white;
+  @apply bg-accent/25 text-ink;
 }
 
 @layer utilities {
@@ -42,7 +51,7 @@ body {
     bottom: 6px;
     height: 2px;
     border-radius: 999px;
-    background: linear-gradient(90deg, #7cf7ff, #ff4fd8);
+    background: linear-gradient(90deg, #4ab8c9, #8fd9b0);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.25s ease;

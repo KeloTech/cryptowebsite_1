@@ -2,7 +2,6 @@ import { About } from "@/components/About";
 import { Community } from "@/components/Community";
 import { DexChart } from "@/components/DexChart";
 import { Footer } from "@/components/Footer";
-import { Gallery } from "@/components/Gallery";
 import { Hero } from "@/components/Hero";
 import { HowToBuy } from "@/components/HowToBuy";
 import { LiveStats } from "@/components/LiveStats";
@@ -22,7 +21,6 @@ export default function Home() {
         <About />
         <Tokenomics />
         <HowToBuy />
-        <Gallery />
         <Community />
         <LiveStats />
         <DexChart />

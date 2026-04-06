@@ -3,7 +3,7 @@
 import { siteConfig } from "@/data/siteConfig";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Gamepad2, Sparkles } from "lucide-react";
+import { Gamepad2 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
 export function MemeGame() {
@@ -11,11 +11,9 @@ export function MemeGame() {
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
 
-  // If the embedded site blocks iframing (CSP/X-Frame-Options) or just hangs,
-  // `onLoad`/`onError` may not fire reliably. This prevents an infinite spinner.
   useEffect(() => {
     if (loaded || failed) return;
-    const t = window.setTimeout(() => setFailed(true), 10000);
+    const t = window.setTimeout(() => setLoaded(true), 8000);
     return () => window.clearTimeout(t);
   }, [failed, loaded]);
 
@@ -24,130 +22,70 @@ export function MemeGame() {
   }, [url]);
 
   return (
-    <section id="game" className="relative px-4 py-16 sm:px-6">
-      <div className="pointer-events-none absolute inset-x-0 top-10 h-40 bg-gradient-to-b from-accent/5 to-transparent blur-3xl" />
-      <div className="mx-auto max-w-6xl">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300">
-              <Sparkles className="h-3.5 w-3.5 text-accent" />
-              Arcade Mode
-            </div>
-            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
-              {siteConfig.game.sectionTitle}
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-zinc-400">
-              {siteConfig.game.body}
-            </p>
-            <p className="mt-3 text-sm italic text-zinc-500">
-              {siteConfig.game.helperLine}
-            </p>
+    <section id="game" className="relative overflow-x-hidden py-16">
+      <div className="pointer-events-none absolute inset-x-0 top-10 h-40 bg-gradient-to-b from-accent/10 to-transparent blur-3xl" />
 
-            <div className="mt-6 flex flex-wrap gap-2">
-              {siteConfig.game.pills.map((p) => (
-                <motion.span
-                  key={p}
-                  whileHover={{ y: -2 }}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-zinc-200"
-                >
-                  {p}
-                </motion.span>
-              ))}
-            </div>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <motion.button
-                type="button"
-                onClick={openTab}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-accent-hot to-fuchsia-400 px-5 py-3 text-sm font-semibold text-ink shadow-[0_0_40px_-12px_rgba(255,79,216,0.75)]"
-              >
-                <Gamepad2 className="h-4 w-4" />
-                {siteConfig.game.ctaLabel}
-              </motion.button>
-              <span className="text-xs text-zinc-500">
-                Opens local game in a new tab
-              </span>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.55, delay: 0.05 }}
-            className="relative"
-          >
-            <div
-              className={cn(
-                "rounded-[1.75rem] p-[1px]",
-                "bg-[length:200%_100%] animate-shimmer bg-gradient-to-r from-accent/40 via-accent-hot/50 to-accent-lime/40",
-              )}
-            >
-              <motion.div
-                whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                className="overflow-hidden rounded-[1.7rem] border border-white/10 bg-elevated shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)]"
-              >
-                {!failed ? (
-                  <>
-                    {!loaded && (
-                      <div className="mx-auto flex w-full max-w-[480px] aspect-[4/7] items-center justify-center bg-ink">
-                        <div className="flex flex-col items-center gap-3 text-sm text-zinc-400">
-                          <div className="h-8 w-8 animate-spin rounded-full border-2 border-white/10 border-t-accent" />
-                          Loading arcade…
-                        </div>
-                      </div>
-                    )}
-                    <iframe
-                      title="Meme coin mini game"
-                      src={url}
-                      className={cn(
-                        "mx-auto w-full max-w-[480px] aspect-[4/7] border-0 bg-black",
-                        "transition-opacity duration-300",
-                        loaded ? "opacity-100" : "opacity-0 pointer-events-none",
-                      )}
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      allow="fullscreen; gamepad"
-                      onLoad={() => setLoaded(true)}
-                      onError={() => setFailed(true)}
-                    />
-                  </>
-                ) : (
-                  <div className="mx-auto flex w-full max-w-[480px] aspect-[4/7] flex-col items-center justify-center gap-4 bg-gradient-to-br from-elevated to-ink p-8 text-center">
-                    <Gamepad2 className="h-10 w-10 text-accent" />
-                    <p className="max-w-sm text-sm text-zinc-400">
-                      The local game is not ready yet. Put your build output in
-                      <code className="mx-1 text-zinc-200">public/game</code> and
-                      then open it in a new tab.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={openTab}
-                      className="rounded-2xl bg-gradient-to-r from-accent to-cyan-300 px-5 py-3 text-sm font-semibold text-ink"
-                    >
-                      Open Game
-                    </button>
+      <motion.div
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.08 }}
+        transition={{ duration: 0.55, delay: 0.05 }}
+        className="relative mx-auto w-full max-w-[1680px] px-3 sm:px-5"
+      >
+        <div
+          className={cn(
+            "rounded-2xl p-[1px] sm:rounded-[1.75rem]",
+            "bg-[length:200%_100%] animate-shimmer bg-gradient-to-r from-accent-lime/70 via-accent-lime/45 to-accent/35",
+          )}
+        >
+          <div className="overflow-hidden rounded-[1.55rem] border border-accent-lime/60 bg-white/50 shadow-[0_24px_60px_-40px_rgba(26,64,58,0.2)] backdrop-blur-sm sm:rounded-[1.7rem]">
+            {!failed ? (
+              <div className="relative aspect-[12/5] w-full bg-[#c5e8d4]">
+                {!loaded && (
+                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-surface/95 backdrop-blur-sm">
+                    <div className="flex flex-col items-center gap-3 text-sm text-muted">
+                      <div className="h-8 w-8 animate-spin rounded-full border-2 border-line border-t-accent" />
+                      Loading arcade…
+                    </div>
                   </div>
                 )}
-              </motion.div>
-            </div>
-            <motion.div
-              aria-hidden
-              animate={{ rotate: [0, 4, -3, 0] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              className="pointer-events-none absolute -right-6 -top-6 h-16 w-16 rounded-2xl bg-accent/15 blur-xl"
-            />
-          </motion.div>
+                <iframe
+                  title="Meme coin mini game"
+                  src={url}
+                  className="absolute inset-0 h-full w-full border-0 bg-[#c5e8d4]"
+                  loading="eager"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allow="fullscreen; gamepad"
+                  onLoad={() => setLoaded(true)}
+                  onError={() => setFailed(true)}
+                />
+              </div>
+            ) : (
+              <div className="flex min-h-[280px] w-full flex-col items-center justify-center gap-4 bg-gradient-to-br from-white/90 to-surface p-8 text-center aspect-[12/5]">
+                <Gamepad2 className="h-10 w-10 text-accent" />
+                <p className="max-w-md text-sm text-muted">
+                  The game did not load in time. Check that{" "}
+                  <code className="text-ink">public/game/index.html</code> exists
+                  and try opening it in a new tab.
+                </p>
+                <button
+                  type="button"
+                  onClick={openTab}
+                  className="rounded-2xl bg-gradient-to-r from-accent to-accent-cyan px-5 py-3 text-sm font-semibold text-ink shadow-sm"
+                >
+                  Open Game
+                </button>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+        <motion.div
+          aria-hidden
+          animate={{ rotate: [0, 4, -3, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="pointer-events-none absolute -right-2 -top-4 hidden h-16 w-16 rounded-2xl bg-accent/20 blur-xl sm:block"
+        />
+      </motion.div>
     </section>
   );
 }
