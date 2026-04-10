@@ -102,6 +102,144 @@
   var goBtnGap = 14;
   var menuHover = false;
   var menuHoverSubmit = false;
+  var menuHoverMute = false;
+
+  // ── Audio (assets/*.MP3) ─────────────────────────────────────────────────
+  var LS_AUDIO_MUTE = "bluesloth_game_muted";
+  var audioMuted =
+    typeof localStorage !== "undefined" &&
+    localStorage.getItem(LS_AUDIO_MUTE) === "1";
+
+  function audioUrl(name) {
+    return "assets/" + encodeURIComponent(name);
+  }
+
+  var musicAudio = new Audio(audioUrl("bluesloth game music.MP3"));
+  musicAudio.loop = true;
+  musicAudio.preload = "auto";
+  musicAudio.volume = 0.42;
+
+  var jumpAudio = new Audio(audioUrl("bluesloth game jump audio.MP3"));
+  jumpAudio.preload = "auto";
+  jumpAudio.volume = 0.88;
+
+  var deathAudio = new Audio(audioUrl("bluesloth game death audio.MP3"));
+  deathAudio.preload = "auto";
+  deathAudio.volume = 0.9;
+
+  var obstacleAudio = new Audio(audioUrl("bluesloth game obstacle audio.MP3"));
+  obstacleAudio.preload = "auto";
+  obstacleAudio.volume = 0.86;
+
+  var muteBtnW = 100;
+  var muteBtnH = 36;
+  var muteBtnX = W - muteBtnW - 14;
+  var muteBtnY = 12;
+
+  function syncAudioMute() {
+    musicAudio.muted = audioMuted;
+    jumpAudio.muted = audioMuted;
+    deathAudio.muted = audioMuted;
+    obstacleAudio.muted = audioMuted;
+  }
+
+  function toggleAudioMute() {
+    audioMuted = !audioMuted;
+    try {
+      localStorage.setItem(LS_AUDIO_MUTE, audioMuted ? "1" : "0");
+    } catch (e) {
+      /* ignore */
+    }
+    syncAudioMute();
+  }
+
+  syncAudioMute();
+
+  function playJumpSound() {
+    if (audioMuted) return;
+    try {
+      var s = new Audio(jumpAudio.currentSrc || jumpAudio.src);
+      s.volume = jumpAudio.volume;
+      s.play().catch(function () {});
+    } catch (e) {
+      /* ignore */
+    }
+  }
+
+  function playDeathSound() {
+    if (audioMuted) return;
+    try {
+      deathAudio.currentTime = 0;
+      deathAudio.play().catch(function () {});
+    } catch (e) {
+      /* ignore */
+    }
+  }
+
+  function playObstacleHitSound() {
+    if (audioMuted) return;
+    try {
+      var s = new Audio(obstacleAudio.currentSrc || obstacleAudio.src);
+      s.volume = obstacleAudio.volume;
+      s.play().catch(function () {});
+    } catch (e) {
+      /* ignore */
+    }
+  }
+
+  function startMusic() {
+    if (audioMuted) return;
+    try {
+      musicAudio.currentTime = 0;
+      musicAudio.play().catch(function () {});
+    } catch (e) {
+      /* ignore */
+    }
+  }
+
+  function stopMusic() {
+    try {
+      musicAudio.pause();
+      musicAudio.currentTime = 0;
+    } catch (e) {
+      /* ignore */
+    }
+  }
+
+  function pointInMute(mx, my) {
+    return (
+      mx >= muteBtnX &&
+      mx <= muteBtnX + muteBtnW &&
+      my >= muteBtnY &&
+      my <= muteBtnY + muteBtnH
+    );
+  }
+
+  /**
+   * Top-right mute toggle; drawn on menu + gameover (not during gameplay).
+   */
+  function drawMuteButton() {
+    muteBtnX = W - muteBtnW - 14;
+    muteBtnY = 12;
+    ctx.fillStyle = menuHoverMute
+      ? "rgba(120,170,220,0.92)"
+      : "rgba(0,0,0,0.55)";
+    ctx.fillRect(muteBtnX, muteBtnY, muteBtnW, muteBtnH);
+    ctx.strokeStyle = "rgba(255,255,255,0.25)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(muteBtnX + 0.5, muteBtnY + 0.5, muteBtnW - 1, muteBtnH - 1);
+    ctx.fillStyle = "#f0f0f8";
+    ctx.font = "bold 9px 'Press Start 2P', monospace";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(
+      audioMuted ? "UNMUTE" : "MUTE",
+      muteBtnX + muteBtnW * 0.5,
+      muteBtnY + muteBtnH * 0.5
+    );
+    ctx.textAlign = "left";
+    ctx.textBaseline = "alphabetic";
+  }
 
   // Jump tuning — variable height system
   var JUMP_INIT_VY    = -300;   // velocity on tap (short jump)
@@ -561,6 +699,8 @@
     gameState   = "gameover";
     lastScore   = Math.floor(scrollX / 10);
     runScoreSubmitted = false;
+    stopMusic();
+    playDeathSound();
     hudEl.style.display = "none"; // canvas menu takes over, hide the HUD
   }
 
@@ -600,10 +740,12 @@
     hideLbEntry();
     menuHover = false;
     menuHoverSubmit = false;
+    menuHoverMute = false;
     resetGame();          // resets all gameplay variables, builds first platforms
     gameState = "playing";
     hudEl.style.display = ""; // show the in-game score HUD
     canvas.focus();
+    startMusic();
   }
 
   function resolvePlayerOnRoofs(dt) {
@@ -651,6 +793,7 @@
       player.jumpT = 0;
       player.onGround = false;
       player.coyote = 0;
+      playJumpSound();
     }
 
     // While held: continuously boost upward (fights gravity → higher arc)
@@ -696,6 +839,7 @@
         var ox = sl + o.rx;
         var oy = b.roofY - o.h;
         if (rectsOverlap(px, py, PLAYER_W, PLAYER_H, ox, oy, o.w, o.h)) {
+          playObstacleHitSound();
           if (o.trip) {
             stumble();
             pushDust(ox + o.w * 0.5, b.roofY);
@@ -1443,6 +1587,7 @@
 
       ctx.textBaseline = "alphabetic";
       ctx.textAlign = "left";
+      drawMuteButton();
       return;
     }
 
@@ -1466,6 +1611,8 @@
 
     ctx.textBaseline = "alphabetic";
     ctx.textAlign = "left";
+
+    drawMuteButton();
   }
 
   function update(dt) {
@@ -1545,6 +1692,10 @@
       var rect = canvas.getBoundingClientRect();
       var mx = (e.clientX - rect.left) * (W / rect.width);
       var my = (e.clientY - rect.top) * (H / rect.height);
+      if (pointInMute(mx, my)) {
+        toggleAudioMute();
+        return;
+      }
       if (gameState === "gameover") {
         if (mx >= menuBtnX && mx <= menuBtnX + goBtnW &&
             my >= menuBtnY && my <= menuBtnY + menuBtnH) {
@@ -1573,6 +1724,7 @@
     var rect = canvas.getBoundingClientRect();
     var mx = (e.clientX - rect.left) * (W / rect.width);
     var my = (e.clientY - rect.top) * (H / rect.height);
+    menuHoverMute = pointInMute(mx, my);
     if (gameState === "gameover") {
       menuHover =
         mx >= menuBtnX && mx <= menuBtnX + goBtnW &&
@@ -1595,6 +1747,7 @@
     keys.mouse = false;
     menuHover = false;
     menuHoverSubmit = false;
+    menuHoverMute = false;
   });
 
   restartBtn.addEventListener("click", function () {
